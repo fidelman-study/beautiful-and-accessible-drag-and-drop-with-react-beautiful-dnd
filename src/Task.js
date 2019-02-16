@@ -5,7 +5,7 @@ import { Draggable } from 'react-beautiful-dnd';
 const Container = styled.div`
   border: 1px solid lightgray;
   padding: 8px;
-  margin: 8px;
+  margin-bottom: 8px;
   border-radius: 2px;
   background: white;
 `
