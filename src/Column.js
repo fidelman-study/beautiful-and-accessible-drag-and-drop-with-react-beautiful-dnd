@@ -21,10 +21,23 @@ const TaskList = styled.div`
   padding: 8px;
   transition: background 200ms ease;
   background: ${props =>
-    props.isDropDisabled ? 'grey' : props.isDraggingOver ? 'skyblue' : 'inherit'};
+    props.isDropDisabled ? 'grey' : props.isDraggingOver ? 'grey' : 'inherit'};
 
   display: flex;
 `;
+
+class InnerList extends React.Component {
+  shouldComponentUpdate(nextProps) {
+    return nextProps.tasks !== this.props.tasks;
+  }
+
+  render() {
+    return this.props.tasks.map((task, index) => (
+      <Task index={index} key={task.id} task={task} />
+    ));
+  }
+}
+
 
 export default class Column extends React.Component {
   render() {
@@ -49,9 +62,7 @@ export default class Column extends React.Component {
                   isDraggingOver={snapshot.isDraggingOver}
                   isDropDisabled={this.props.isDropDisabled}
                 >
-                  {this.props.tasks.map((task, index) => (
-                    <Task index={index} key={task.id} task={task} />
-                  ))}
+                  <InnerList tasks={this.props.tasks} />
                   {provided.placeholder}
                 </TaskList>
               )}

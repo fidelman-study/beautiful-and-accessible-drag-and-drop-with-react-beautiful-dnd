@@ -9,6 +9,14 @@ const Container = styled.div`
   display: block;
 `;
 
+class InnerList extends React.PureComponent {
+  render() {
+    const { column, taskMap, index } = this.props;
+    const tasks = column.taskIds.map(taskId => taskMap[taskId]);
+    return <Column column={column} tasks={tasks} index={index} />;
+  }
+}
+
 class App extends React.Component {
   state = initialData;
 
@@ -106,21 +114,16 @@ class App extends React.Component {
         >
           {provided => (
             <Container ref={provided.innerRef} {...provided.droppableProps}>
+
               {this.state.columnsOrder.map((columnId, index) => {
                 const column = this.state.columns[columnId];
-                const tasks = column.taskIds.map(
-                  taskId => this.state.tasks[taskId],
-                );
-
-                const isDropDisabled = index < this.state.homeIndex;
 
                 return (
-                  <Column
-                    isDropDisabled={isDropDisabled}
+                  <InnerList
                     key={column.id}
-                    tasks={tasks}
                     column={column}
                     index={index}
+                    taskMap={this.state.tasks}
                   />
                 );
               })}
