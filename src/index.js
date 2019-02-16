@@ -12,7 +12,19 @@ const Container = styled.div`
 class App extends React.Component {
   state = initialData;
 
+  onDragStart = start => {
+    const homeIndex = this.state.columnsOrder.indexOf(start.source.droppableId);
+    this.setState({
+      homeIndex,
+    })
+
+  }
+
   onDragEnd = result => {
+    this.setState({
+      homeIndex: null,
+    })
+
     const { destination, source, draggableId } = result;
 
     if (!destination) return;
@@ -78,15 +90,17 @@ class App extends React.Component {
 
   render() {
     return (
-      <DragDropContext onDragEnd={this.onDragEnd}>
+      <DragDropContext onDragStart={this.onDragStart} onDragEnd={this.onDragEnd}>
         <Container>
-          {this.state.columnsOrder.map(columnId => {
+          {this.state.columnsOrder.map((columnId, index) => {
             const column = this.state.columns[columnId];
             const tasks = column.taskIds.map(
               taskId => this.state.tasks[taskId],
             );
 
-            return <Column key={column.id} tasks={tasks} column={column} />;
+            const isDropDisabled = index < this.state.homeIndex;
+
+            return <Column isDropDisabled={isDropDisabled} key={column.id} tasks={tasks} column={column} />;
           })}
         </Container>
       </DragDropContext>

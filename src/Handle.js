@@ -5,4 +5,6 @@ export default styled.div`
   background-color: orange;
   border-radius: 4px;
   margin-right: 8px;
+  opacity: ${props => (props.isDragDisabled) ? 0.5 : 1};
+  cursor: ${props => (props.isDragDisabled) ? 'no-drop' : 'initial'};
 `;
