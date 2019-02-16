@@ -1,6 +1,7 @@
 import React from 'react'
 import styled from 'styled-components'
 import { Draggable } from 'react-beautiful-dnd';
+import Handle from './Handle';
 
 const Container = styled.div`
   border: 1px solid lightgray;
@@ -9,7 +10,7 @@ const Container = styled.div`
   border-radius: 2px;
   transition: background 200ms ease;
   background: ${props => (props.isDragging ? 'lightgreen' : 'white')};
-
+  display: flex;
 `
 
 
@@ -22,10 +23,10 @@ export default class Task extends React.Component {
       {(provided, snapshot) => (
         <Container
           {...provided.draggableProps}
-          {...provided.dragHandleProps}
           ref={provided.innerRef}
           isDragging={snapshot.isDragging}
         >
+          <Handle {...provided.dragHandleProps} />
           {this.props.task.content}
         </Container>
       )}

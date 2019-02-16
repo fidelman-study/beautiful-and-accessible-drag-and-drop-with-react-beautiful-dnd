@@ -7,24 +7,7 @@ import Column from './Column';
 class App extends React.Component {
   state = initialData;
 
-  onDragStart = () => {
-    document.body.style.color = 'orange';
-    document.body.style.transition = 'background-color 400ms ease';
-  }
-
-  onDragUpdate = update => {
-    const { destination } = update;
-    const opacity = destination
-      ? destination.index / Object.keys(this.state.tasks).length
-      : 0;
-
-    document.body.style.backgroundColor = `rgba(153, 141, 217, ${opacity})`;
-  }
-
   onDragEnd = result => {
-    document.body.style.color = 'inherit';
-    document.body.style.backgroundColor = 'inherit';
-
     const {destination, source, draggableId} = result;
 
     if (!destination) return;
@@ -55,8 +38,6 @@ class App extends React.Component {
   render() {
     return (
       <DragDropContext
-        onDragStart={this.onDragStart}
-        onDragUpdate={this.onDragUpdate}
         onDragEnd={this.onDragEnd}
       >
         {this.state.columnsOrder.map(columnId => {
