@@ -6,7 +6,7 @@ import Handle from './Handle';
 const Container = styled.div`
   border: 1px solid lightgray;
   padding: 8px;
-  margin-bottom: 8px;
+  margin-right: 8px;
   border-radius: 2px;
   transition: background 200ms ease;
   background: ${props => (props.isDragging ? 'lightgreen' : 'white')};

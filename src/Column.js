@@ -8,7 +8,6 @@ const Container = styled.div`
   border: 1px solid lightgrey;
   border-radius: 2px;
   user-select: none;
-  width: 220px;
 
   display: flex;
   flex-direction: column;
@@ -26,8 +25,8 @@ const TaskList = styled.div`
         ? 'skyblue'
         : 'white'
     };
-  flex: 1;
-  min-height: 100px;
+
+  display: flex;
 `;
 
 export default class Column extends React.Component {
@@ -39,6 +38,7 @@ export default class Column extends React.Component {
           droppableId={this.props.column.id}
           // type={this.props.column.id === 'column-3' ? 'done' : 'active'}
           isDropDisabled={this.props.isDropDisabled}
+          direction="horizontal"
         >
           {(provided, snapshot) => (
             <TaskList
